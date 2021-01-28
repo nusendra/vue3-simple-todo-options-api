@@ -15,7 +15,9 @@
                 <button @click="done(index)" class="btn btn-info">Done</button>
               </div>
               <div class="col">
-                <button @click="deleteTODO(index)" class="btn btn-danger">X</button>
+                <button @click="deleteTODO(index)" class="btn btn-danger">
+                  X
+                </button>
               </div>
             </div>
           </div>
@@ -30,16 +32,19 @@ export default {
   props: {
     todos: {
       type: Array,
-      default: []
-    }
-  },
-  methods: {
-    deleteTODO(index) {
-      this.$emit('deleteTodo', index);
+      default: [],
     },
-    done(index) {
-      this.$emit('doneTodo', index);
-    }
-  }
-}
+  },
+  setup(props, { emit }) {
+    const deleteTODO = (index) => {
+      emit("deleteTodo", index);
+    };
+
+    const done = (index) => {
+      emit("doneTodo", index);
+    };
+
+    return { deleteTODO, done };
+  },
+};
 </script>
